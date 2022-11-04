@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:改mapper.xml映射文件的唯一标识并且必须和数据处理层的接口的路径相同-->
+<mapper namespace="edu.nyit.apiproxy.dao.ApiMapper">
+
+    <resultMap id="blockList" type="edu.nyit.apiproxy.entity.BlockList">
+        <id column="id" property="id" javaType="int" ></id>
+        <result column="keywords" property="keywords" javaType="String" ></result>
+        <result column="category_id" property="categoryId" javaType="int" ></result>
+    </resultMap>
+
+    <select id="queryAllBlockList" resultMap="blockList">
+        select * from  blocklist;
+    </select>
+
+</mapper>

@@ -1,9 +1,10 @@
 package edu.nyit.apiproxy.controller;
 
+import edu.nyit.apiproxy.service.ApiProxyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.print.attribute.standard.RequestingUserName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -12,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 public class MainController {
+
+
+    @Autowired
+    private ApiProxyService apiProxyService;
 
     /**
      * @param request
@@ -54,6 +59,8 @@ public class MainController {
         System.out.println(localIp);
 
         System.out.println("Received param from the client:" + param);
+
+        apiProxyService.forwardClientRequest("","");
 
         return "hello world" + param;
     }
