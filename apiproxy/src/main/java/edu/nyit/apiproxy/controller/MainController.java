@@ -3,9 +3,11 @@ package edu.nyit.apiproxy.controller;
 import edu.nyit.apiproxy.service.ApiProxyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 /**
  * @author wangtao
@@ -21,11 +23,11 @@ public class MainController {
     /**
      * @param request
      * @param param      the param of the request
-     * @param serverCode the unique identity number of the server
+     * @param code the unique identity number of the server
      * @return
      */
-    @RequestMapping("/apiProxy")
-    public Object apiProxy(HttpServletRequest request, String param, String serverCode) {
+    @RequestMapping(value = "/apiProxy", method = {RequestMethod.GET, RequestMethod.POST})
+    public Object apiProxy(HttpServletRequest request, String param, int code) {
 
 
         //analyze the param
@@ -49,9 +51,11 @@ public class MainController {
 
         //10, respond the data to the client
 
+        String method = request.getMethod();
         String remoteIp = request.getRemoteAddr();
         String localIp = request.getLocalAddr();
         String url = request.getRequestURI();
+
 
         System.out.println("url = " + url);
 
@@ -60,7 +64,7 @@ public class MainController {
 
         System.out.println("Received param from the client:" + param);
 
-        apiProxyService.forwardClientRequest("","");
+        Object result = apiProxyService.forwardClientRequest(url,method, code, new HashMap<>(),new HashMap<>());
 
         return "hello world" + param;
     }

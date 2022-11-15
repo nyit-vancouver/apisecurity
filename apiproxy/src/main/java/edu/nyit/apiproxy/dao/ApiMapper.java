@@ -1,6 +1,7 @@
 package edu.nyit.apiproxy.dao;
 
 import edu.nyit.apiproxy.entity.BlockList;
+import edu.nyit.apiproxy.entity.SourceMatch;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,11 @@ public interface ApiMapper {
      * @return
      */
     List<BlockList> queryAllBlockList();
+
+    /**
+     * 根据code 获取server 的url
+     * @param code
+     * @return
+     */
+    SourceMatch selectByCode(int code);
 }
