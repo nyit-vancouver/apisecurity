@@ -1,7 +1,9 @@
 package edu.nyit.apiproxy.controller;
 
+import edu.nyit.apiproxy.model.RequestParam;
 import edu.nyit.apiproxy.service.ApiProxyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,12 +24,11 @@ public class MainController {
 
     /**
      * @param request
-     * @param param      the param of the request
-     * @param code the unique identity number of the server
+     * @param param   the param of the request
      * @return
      */
     @RequestMapping(value = "/apiProxy", method = {RequestMethod.GET, RequestMethod.POST})
-    public Object apiProxy(HttpServletRequest request, String param, int code) {
+    public Object apiProxy(HttpServletRequest request, @RequestBody RequestParam param) {
 
 
         //analyze the param
@@ -64,8 +65,8 @@ public class MainController {
 
         System.out.println("Received param from the client:" + param);
 
-        Object result = apiProxyService.forwardClientRequest(url,method, code, new HashMap<>(),new HashMap<>());
+        Object result = apiProxyService.forwardClientRequest(url, method, param.getParam());
 
-        return "hello world" + param;
+        return result;
     }
 }

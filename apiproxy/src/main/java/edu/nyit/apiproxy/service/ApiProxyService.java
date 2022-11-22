@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,22 +23,22 @@ public class ApiProxyService {
     @Autowired
     private ApiMapper apiMapper;
 
-    public Object forwardClientRequest(String url, String method, int code, Map<String, String> params, Map<String, String> headers) {
+    public Object forwardClientRequest(String url, String method, Map<String, String> params) {
 
-        SourceMatch sourceMatch = apiMapper.selectByCode(code);
+        SourceMatch sourceMatch = apiMapper.selectByCode(Integer.parseInt(params.get("code")));
 
         if (sourceMatch == null) {
             throw new RuntimeException("server not exists error");
         }
 
-        String sourceURL = tranformURL(url, sourceMatch.getUrl());
+        String sourceURL = transformURL(url, sourceMatch.getUrl());
 
         System.out.println("method = " + method);
         Object result = null;
         if (RequestMethod.GET.equals(method)) {
-            result = HttpUtils.get(sourceURL, headers);
+            result = HttpUtils.get(sourceURL, new HashMap<>());
         } else if (RequestMethod.POST.equals(method)) {
-            result = HttpUtils.post(url, headers, params);
+            result = HttpUtils.post(url, new HashMap<>(), params);
         }
 
         return result;
@@ -52,7 +53,7 @@ public class ApiProxyService {
      * @param sourceURL
      * @return
      */
-    private String tranformURL(String originalURL, String sourceURL) {
+    private String transformURL(String originalURL, String sourceURL) {
         // TODO: 2022/11/14
         System.out.println("originalURL = " + originalURL);
         System.out.println("sourceURL = " + sourceURL);
