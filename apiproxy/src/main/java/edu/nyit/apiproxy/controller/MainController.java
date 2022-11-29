@@ -1,6 +1,8 @@
 package edu.nyit.apiproxy.controller;
 
+import edu.nyit.apiproxy.constant.Cons;
 import edu.nyit.apiproxy.model.RequestParam;
+import edu.nyit.apiproxy.model.ResponseObj;
 import edu.nyit.apiproxy.service.ApiProxyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +21,6 @@ import java.util.Map;
 @RestController
 public class MainController {
 
-
     @Autowired
     private ApiProxyService apiProxyService;
 
@@ -32,46 +33,23 @@ public class MainController {
     public Object apiProxy(HttpServletRequest request, @RequestBody RequestParam param) {
 
 
-        //analyze the param
-        //1,check the black list of sql injection
-
-        //2,check the black list of nosql injection
-
-        //3,check the black list of command injection
-
-        //4,check if there is a white list of the server
-
-        //5,if the request passes all filters, ready to forward it to the server
-
-        //6, search the ip address of the server
-
-        //7,search the url of the server
-
-        //8, prepare the param of the request and forward it to the server
-
-        //9, get the response from the server
-
-        //10, respond the data to the client
-
-        String method = request.getMethod();
-        String remoteIp = request.getRemoteAddr();
-        String localIp = request.getLocalAddr();
-        String url = request.getRequestURI();
-
+        String requestType = request.getMethod();
         String queryString = request.getQueryString();
-        System.out.println(queryString);
 
+        //collect all parameters of the request.
         Map<String,String> paramMap = null;
 
-        if(method.equals("GET")){
+        //get parameters by request type
+        if(requestType.equals(Cons.GET)){
             paramMap = parseParam(queryString);
         }else{
             paramMap = param.getParam();
         }
 
-        Object result = apiProxyService.forwardClientRequest(paramMap.get("serviceName"), method, paramMap);
+        //forward or block request and get result
+        ResponseObj result = (ResponseObj)apiProxyService.forwardClientRequest(paramMap.get(Cons.SERVICE_NAME), requestType, paramMap);
 
-        return result;
+        return result.getData();
     }
 
     /**
