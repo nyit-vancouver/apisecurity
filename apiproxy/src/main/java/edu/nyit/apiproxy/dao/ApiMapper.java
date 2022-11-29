@@ -22,9 +22,9 @@ public interface ApiMapper {
     List<BlockList> queryAllBlockList();
 
     /**
-     * 根据code 获取server 的url
-     * @param code
+     * 根据serviceName 获取server 的ip port
+     * @param serviceName
      * @return
      */
-    SourceMatch selectByCode(int code);
+    SourceMatch selectByServiceName(String serviceName);
 }

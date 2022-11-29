@@ -13,16 +13,17 @@
 
     <resultMap id="sourceMatch" type="edu.nyit.apiproxy.entity.SourceMatch">
         <id column="id" property="id" javaType="int"></id>
-        <result column="code" property="code" javaType="int"></result>
-        <result column="url" property="url" javaType="String"></result>
+        <result column="service_name" property="serviceName" javaType="String"></result>
+        <result column="service_ip" property="serviceIp" javaType="String"></result>
+        <result column="service_port" property="servicePort" javaType="String"></result>
     </resultMap>
 
     <select id="queryAllBlockList" resultMap="blockList">
         select * from  blocklist;
     </select>
 
-    <select id="selectByCode" parameterType="int" resultMap="sourceMatch">
-        select  * from source_match a where a.code = #{code};
+    <select id="selectByServiceName" parameterType="String" resultMap="sourceMatch">
+        select  * from source_match a where a.service_name = #{service_name};
     </select>
 
 </mapper>

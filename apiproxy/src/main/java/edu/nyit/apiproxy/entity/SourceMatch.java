@@ -11,14 +11,19 @@ public class SourceMatch {
     private int id;
 
     /**
-     * the unique code of the server
+     * the name of the server
      */
-    private int code;
+    private String serviceName;
 
     /**
-     * the url of the server
+     * the ip of the server
      */
-    private String url;
+    private String serviceIp;
+
+    /**
+     * the port of the server
+     */
+    private String servicePort;
 
     public int getId() {
         return id;
@@ -28,19 +33,27 @@ public class SourceMatch {
         this.id = id;
     }
 
-    public int getCode() {
-        return code;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
-    public String getUrl() {
-        return url;
+    public String getServiceIp() {
+        return serviceIp;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setServiceIp(String serviceIp) {
+        this.serviceIp = serviceIp;
+    }
+
+    public String getServicePort() {
+        return servicePort;
+    }
+
+    public void setServicePort(String servicePort) {
+        this.servicePort = servicePort;
     }
 }

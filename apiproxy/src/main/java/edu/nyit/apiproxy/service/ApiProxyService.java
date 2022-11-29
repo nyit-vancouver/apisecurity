@@ -23,22 +23,22 @@ public class ApiProxyService {
     @Autowired
     private ApiMapper apiMapper;
 
-    public Object forwardClientRequest(String url, String method, Map<String, String> params) {
+    public Object forwardClientRequest(String serviceName, String method, Map<String, String> params) {
 
-        SourceMatch sourceMatch = apiMapper.selectByCode(Integer.parseInt(params.get("code")));
+        SourceMatch sourceMatch = apiMapper.selectByServiceName(serviceName);
 
         if (sourceMatch == null) {
             throw new RuntimeException("server not exists error");
         }
 
-        String sourceURL = transformURL(url, sourceMatch.getUrl());
+        String sourceURL = transformURL(sourceMatch.getServiceName(), sourceMatch.getServiceIp(), sourceMatch.getServicePort());
 
-        System.out.println("method = " + method);
         Object result = null;
-        if (RequestMethod.GET.equals(method)) {
+
+        if ("GET".equals(method)) {
             result = HttpUtils.get(sourceURL, new HashMap<>());
-        } else if (RequestMethod.POST.equals(method)) {
-            result = HttpUtils.post(url, new HashMap<>(), params);
+        } else if ("POST".equals(method)) {
+            result = HttpUtils.post(sourceURL, new HashMap<>(), params);
         }
 
         return result;
@@ -49,14 +49,9 @@ public class ApiProxyService {
      * url 地址转换
      * 比如 127.0.0.1:8080/apiproxy/ 转换成 12.34.45.78:9090/testserver1
      *
-     * @param originalURL
-     * @param sourceURL
      * @return
      */
-    private String transformURL(String originalURL, String sourceURL) {
-        // TODO: 2022/11/14
-        System.out.println("originalURL = " + originalURL);
-        System.out.println("sourceURL = " + sourceURL);
-        return "";
+    private String transformURL(String serviceName, String serviceIp, String servicePort) {
+        return "http://" + serviceIp + ":" + servicePort + "/" + serviceName;
     }
 }

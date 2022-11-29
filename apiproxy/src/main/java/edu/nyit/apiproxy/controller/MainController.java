@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author wangtao
@@ -57,16 +58,36 @@ public class MainController {
         String localIp = request.getLocalAddr();
         String url = request.getRequestURI();
 
+        String queryString = request.getQueryString();
+        System.out.println(queryString);
 
-        System.out.println("url = " + url);
+        Map<String,String> paramMap = null;
 
-        System.out.println(remoteIp);
-        System.out.println(localIp);
+        if(method.equals("GET")){
+            paramMap = parseParam(queryString);
+        }else{
+            paramMap = param.getParam();
+        }
 
-        System.out.println("Received param from the client:" + param);
-
-        Object result = apiProxyService.forwardClientRequest(url, method, param.getParam());
+        Object result = apiProxyService.forwardClientRequest(paramMap.get("serviceName"), method, paramMap);
 
         return result;
+    }
+
+    /**
+     * parse request params from queryString
+     * a=b&c=d&e=f
+     * @param queryString
+     * @return
+     */
+    private Map<String, String> parseParam(String queryString) {
+
+        Map<String, String> paramMap = new HashMap<>();
+        String[] array = queryString.split("&");
+        for(String str : array){
+            String[] kv = str.split("=");
+            paramMap.put(kv[0],kv[1]);
+        }
+        return paramMap;
     }
 }
