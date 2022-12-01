@@ -3,7 +3,7 @@ package edu.nyit.apiproxy.model;
 import java.util.Map;
 
 /**
- * 接收请求参数
+ * Request parameter
  * @author wangtao
  * @date 2022/11/21 19:55
  */

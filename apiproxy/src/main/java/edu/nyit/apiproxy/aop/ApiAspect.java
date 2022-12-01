@@ -48,7 +48,7 @@ public class ApiAspect {
         //获取请求参数
         Object[] args = pjp.getArgs();
         //提取请求参数到map
-        Map<String, String> params = (Map<String, String>) args[2];
+        Map<String, String> params = (Map<String, String>) args[3];
         //将请求参数拼装成string
         Set<String> keySet = params.keySet();
         StringBuilder sb = new StringBuilder();
@@ -60,8 +60,6 @@ public class ApiAspect {
 
         boolean flag = false;
 
-        // TODO: 2022/11/3 Ying 从数据库获取blocklist，
-        //  检查请求的参数里是否包含黑名单的关键字，如果不包含，则 继续后续流程，如果包含，则不转发该请求
         List<BlockList> blockLists = apiMapper.queryAllBlockList();
 
         //default as normal response

@@ -16,13 +16,20 @@ import java.util.List;
 public interface ApiMapper {
 
     /**
-     * 获取所有的黑名单内容
+     * get all block list
      * @return
      */
     List<BlockList> queryAllBlockList();
 
     /**
-     * 根据serviceName 获取server 的ip port
+     * get by id
+     * @param id
+     * @return
+     */
+    BlockList queryById(String id);
+
+    /**
+     * get the match entity by service name
      * @param serviceName
      * @return
      */

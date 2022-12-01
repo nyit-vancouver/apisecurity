@@ -1,6 +1,7 @@
 package edu.nyit.apiproxy.model;
 
 /**
+ * response object
  * @author wangtao
  * @date 2022/11/29 0:25
  */
