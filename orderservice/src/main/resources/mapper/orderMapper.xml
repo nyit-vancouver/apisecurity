@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:改mapper.xml映射文件的唯一标识并且必须和数据处理层的接口的路径相同-->
+<mapper namespace="edu.nyit.orderservice.mapper.OrderMapper">
+
+    <resultMap id="orderInfo" type="edu.nyit.orderservice.entity.OrderInfo">
+        <id column="id" property="id" javaType="String" ></id>
+        <result column="product_name" property="productName" javaType="String" ></result>
+        <result column="product_desc" property="productDesc" javaType="String" ></result>
+    </resultMap>
+
+    <select id="queryOrderById" parameterType="String" resultMap="orderInfo">
+        select  * from orderinfo a where a.id = #{id};
+    </select>
+
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="id" parameterType="edu.nyit.orderservice.entity.OrderInfo">
+        insert into orderinfo (product_name,product_desc)values ('#{productName}','#{productDesc}')
+    </insert>
+
+</mapper>
