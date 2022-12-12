@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: proxy orderservice
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: http://localhost
+paths:
+  /apiProxy/orderservice/addOrder:
+    post:
+      summary: addOrder Copy
+      description: addOrder Copy
+      operationId: addorderCopy
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                productDesc:
+                  type: string
+                  example: test
+                productName:
+                  type: string
+                  example: test
+      responses:
+        '200':
+          description: ''
+  /apiProxy/orderservice/queryOrderById:
+    get:
+      summary: queryOrderById Copy
+      description: queryOrderById Copy
+      operationId: queryorderbyidCopy
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            example: '1'
+      responses:
+        '200':
+          description: ''
+tags: []

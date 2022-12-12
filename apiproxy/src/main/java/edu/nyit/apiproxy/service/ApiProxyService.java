@@ -68,6 +68,7 @@ public class ApiProxyService {
 
     private String parseServiceName(String uri) {
         String[] strings = uri.split("/");
+        if(strings.length < 2) return "";
         return strings[1];
     }
 

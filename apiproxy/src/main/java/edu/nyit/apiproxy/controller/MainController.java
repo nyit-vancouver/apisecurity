@@ -93,6 +93,9 @@ public class MainController {
     private Map<String, String> parseParam(String queryString) {
 
         Map<String, String> paramMap = new HashMap<>();
+
+        if(queryString == null) return paramMap;
+
         String[] array = queryString.split("&");
         for (String str : array) {
             String[] kv = str.split("=");

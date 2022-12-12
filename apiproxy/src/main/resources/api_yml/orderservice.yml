@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: orderservice
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: http://localhost
+paths:
+  /orderservice/addOrder:
+    post:
+      summary: addOrder
+      description: addOrder
+      operationId: addorder
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                productDesc:
+                  type: string
+                  example: test
+                productName:
+                  type: string
+                  example: test
+      responses:
+        '200':
+          description: ''
+  /orderservice/queryOrderById:
+    get:
+      summary: queryOrderById
+      description: queryOrderById
+      operationId: queryorderbyid
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+            example: '1'
+      responses:
+        '200':
+          description: ''
+tags: []
