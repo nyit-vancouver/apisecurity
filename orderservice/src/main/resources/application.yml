@@ -1,14 +1,19 @@
 server:
-  port: 8081
+  port: 8080
   servlet:
     context-path: /orderservice
 
 spring:
   datasource:
-    url: jdbc:mysql://124.223.60.96:3306/proxy?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
-    username: apiuser
-    password: apiuser
+    url: jdbc:mysql://175.24.199.48:3306/proxy?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: test
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    host: 175.24.199.48
+    port: 6378
+    password: wangtao123
 
 mybatis:
   type-aliases-package: edu.nyit.orderservice.entity
